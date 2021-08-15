@@ -1,5 +1,7 @@
 <template>
   <view>
+    <!-- <my-search :bgcolor="'pink'"></my-search> -->
+    <my-search @click="gotoSearch"></my-search>
     <view class="scroll-view-container">
       <scroll-view class="left-scroll-view" scroll-y :style="{height: wh+'px'}">
 
@@ -33,6 +35,7 @@
 
 <script>
   export default {
+    
     data() {
       return {
         wh: 0,
@@ -45,7 +48,7 @@
     onLoad() {
 
       const sysInfo = uni.getSystemInfoSync()
-      this.wh = sysInfo.windowHeight
+      this.wh = sysInfo.windowHeight - 50
       // console.log(sysInfo)
       this.getCateList()
     },
@@ -69,6 +72,12 @@
         // console.log(1)
         uni.navigateTo({
           url:'/subpkg/goods_list/goods_list?cid='+item3.cat_id
+        })
+      },
+      gotoSearch(){
+        // console.log(1)
+        uni.navigateTo({
+          url:'/subpkg/search/search'
         })
       }
     }
