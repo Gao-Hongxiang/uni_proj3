@@ -3,9 +3,18 @@
     "pages/home/home",
     "pages/cate/cate",
     "pages/cart/cart",
-    "pages/my/my"
+    "pages/my/my",
+    "pages/test/test"
   ],
-  "subPackages": [],
+  "subPackages": [
+    {
+      "root": "subpkg",
+      "pages": [
+        "goods_ditail/goods_ditail",
+        "goods_list/goods_list"
+      ]
+    }
+  ],
   "window": {
     "navigationBarTextStyle": "white",
     "navigationBarTitleText": "黑马优购",
@@ -41,6 +50,5 @@
       }
     ]
   },
-  "usingComponents": {},
-  "sitemapLocation": "sitemap.json"
+  "usingComponents": {}
 }
