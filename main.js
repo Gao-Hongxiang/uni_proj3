@@ -21,10 +21,17 @@ $http.beforeRequest = function(option) {
     title:'数据加载中'
   })
 }
+
 $http.afterRequest = function(option) {
   uni.hideLoading()
 }
 // $http.afterRequest = function(){
+
+// $http.afterRequest = function(option) {
+
+//   uni.hideLoading()
+// }
+// $http.afterRequest = function(option){
 //   uni.hideLoading()
 // }
 const app = new Vue({

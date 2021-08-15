@@ -30,10 +30,17 @@ _requestMiniprogram.$http.beforeRequest = function (option) {
     title: '数据加载中' });
 
 };
+
 _requestMiniprogram.$http.afterRequest = function (option) {
   uni.hideLoading();
 };
 // $http.afterRequest = function(){
+
+// $http.afterRequest = function(option) {
+
+//   uni.hideLoading()
+// }
+// $http.afterRequest = function(option){
 //   uni.hideLoading()
 // }
 var app = new _vue.default(_objectSpread({},
