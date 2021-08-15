@@ -11,25 +11,29 @@
   }, {
     "path": "pages/my/my",
     "style": {}
-  }    ,{
-            "path" : "pages/test/test",
-            "style" : {}
-        }
-    ],
+  }, {
+    "path": "pages/test/test",
+    "style": {}
+  }],
   "subPackages": [{
     "root": "subpkg",
     "pages": [{
       "path": "goods_ditail/goods_ditail",
       "style": {}
-    }    ,{
-                    "path" : "goods_list/goods_list",
-                    "style" : {}
-                }
-                ,{
-                    "path" : "search/search",
-                    "style" : {}
-                }
-            ]
+    }, {
+      "path": "goods_list/goods_list",
+      "style": {
+        "onReachBottomDistance":150,
+        "enablePullDownRefresh":true,
+        "backgroundColor":"#f0f0f0",
+        "backgroundTextStyle":"dark"
+        
+        
+      }
+    }, {
+      "path": "search/search",
+      "style": {}
+    }]
   }],
   "globalStyle": {
     "navigationBarTextStyle": "white",
