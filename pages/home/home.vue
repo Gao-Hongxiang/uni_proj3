@@ -65,7 +65,7 @@
         }
         // 3.3 请求成功，为 data 中的数据赋值
         this.swiperList = res.message
-        uni.$showMsg("成功")
+        // uni.$showMsg("成功")
       },
       async getNavList() {
         const {

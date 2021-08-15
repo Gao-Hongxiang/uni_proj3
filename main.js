@@ -21,7 +21,7 @@ $http.beforeRequest = function(option) {
     title:'数据加载中'
   })
 }
-$http.afterRequset = function(option) {
+$http.afterRequest = function(option) {
   uni.hideLoading()
 }
 // $http.afterRequest = function(){
