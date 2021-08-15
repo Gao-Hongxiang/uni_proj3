@@ -40,8 +40,8 @@
 </script>
 
 <style lang="scss">
-.goods-list {
-    margin:0 10px;
+
+
     .goods-item {
       padding: 5px 5px;
       display:flex;
@@ -61,6 +61,7 @@
         
         .goods-name {
           font-size: 12px;
+          padding-top: 10px;
         }
 
         .good-price {
@@ -69,5 +70,5 @@
         }
       }
     }
-  }
+  
 </style>
