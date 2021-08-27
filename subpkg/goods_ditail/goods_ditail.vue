@@ -18,46 +18,72 @@
           <uni-icons type="star" size="18" color="gray"></uni-icons>
            <text>收藏</text>
         </view>
-        
+
       </view>
-       <view class="yf">快递：免运费</view>
+       <view class="yf">快递：免运费---{{cart.length}}</view>
     </view>
-    
+
     <rich-text :nodes="goods_info.goods_introduce"></rich-text>
     <view class="good_nav">
-       <uni-goods-nav :fill="true"  :options="options" :buttonGroup="buttonGroup"  @click="onClick" @buttonClick="buttonClick" />
+      <uni-goods-nav :fill="true" :options="options" :buttonGroup="buttonGroup" @click="onClick" @buttonClick="buttonClick" />
     </view>
-   
+
   </view>
 </template>
 
 <script>
+  import {
+    mapState,
+    mapMutations,
+    mapGetters
+  } from 'vuex'
   export default {
     data() {
       return {
         goods_info: {},
         options: [{
-                    icon: 'shop',
-                    text: '店铺',
-                 
-                    
-                }, {
-                    icon: 'cart',
-                    text: '购物车',
-                    info: 2
-                }],
-                buttonGroup: [{
-                  text: '加入购物车',
-                  backgroundColor: '#ff0000',
-                  color: '#fff'
-                },
-                {
-                  text: '立即购买',
-                  backgroundColor: '#ffa200',
-                  color: '#fff'
-                }
-                ]
+          icon: 'shop',
+          text: '店铺',
+
+
+        }, {
+          icon: 'cart',
+          text: '购物车',
+          info: 0
+        }],
+        buttonGroup: [{
+            text: '加入购物车',
+            backgroundColor: '#ff0000',
+            color: '#fff'
+          },
+          {
+            text: '立即购买',
+            backgroundColor: '#ffa200',
+            color: '#fff'
+          }
+        ]
       };
+    },
+    computed: {
+      ...mapState('m_cart', ['cart']),
+      ...mapGetters('m_cart', ['total'])
+    },
+    watch: {
+      // total(newVal){
+      //   const findResult = this.options.find((x)=>x.text=='购物车')
+      //   if(findResult){
+      //     findResult.info = newVal
+      //   }
+      // }
+      total: {
+        handler(newVal) {
+          const findResult = this.options.find((x) => x.text == '购物车')
+          if (findResult) {
+            findResult.info = newVal
+          }
+        },
+        immediate:true
+      }
     },
     onLoad(options) {
       const goods_id = options.goods_id
@@ -65,6 +91,7 @@
       // console.log(goods_id)
     },
     methods: {
+      ...mapMutations('m_cart', ['addToCart']),
       async getGoodsDetail(goods_id) {
         const {
           data: res
@@ -73,7 +100,8 @@
         })
         // console.log(res)
         if (res.meta.status !== 200) return uni.$showMsg()
-        res.message.goods_introduce = res.message.goods_introduce.replace(/<img /g,'<img style="display:block;"').replace(/webp/g, 'jpg')
+        res.message.goods_introduce = res.message.goods_introduce.replace(/<img /g, '<img style="display:block;"').replace(
+          /webp/g, 'jpg')
         this.goods_info = res.message
       },
       preview(i) {
@@ -82,12 +110,26 @@
           urls: this.goods_info.pics.map(x => x.pics_big)
         })
       },
-      onClick(e){
+      onClick(e) {
         // console.log(e)
-        if(e.content.text === '购物车') {
+        if (e.content.text === '购物车') {
           uni.switchTab({
-            url:'/pages/cart/cart'})
+            url: '/pages/cart/cart'
+          })
+        }
+      },
+      buttonClick(e) {
+        if (e.content.text === '加入购物车') {
+          const goods = {
+            goods_id: this.goods_info.goods_id,
+            goods_name: this.goods_info.goods_name,
+            goods_price: this.goods_info.goods_price,
+            goods_count: 1,
+            goods_small_logo: this.goods_info.goods_small_logo,
+            goods_state: true
           }
+          this.addToCart(goods)
+        }
       }
     }
   }
@@ -142,7 +184,8 @@
       color: gray
     }
   }
-  .good_nav{
+
+  .good_nav {
     position: sticky;
     bottom: 0;
     width: 100%;

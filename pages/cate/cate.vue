@@ -15,7 +15,7 @@
             /{{item2.cat_name}}/
           </view>
           <view class="cate-lv3-list">
-            <view class="cate-lv3-item"  v-for="(item3,i3) in item2.children" :key="i3" @click="gotoGoodsList(item3)">
+            <view class="cate-lv3-item" v-for="(item3,i3) in item2.children" :key="i3" @click="gotoGoodsList(item3)">
               <image :src="item3.cat_icon">
 
               </image>
@@ -34,15 +34,19 @@
 </template>
 
 <script>
+  // 导入自己封装的 mixin 模块
+  import badgeMix from '@/mixins/tabbar-badge.js'
   export default {
-    
+    // 将 badgeMix 混入到当前的页面中进行使用
+    mixins: [badgeMix],
+
     data() {
       return {
         wh: 0,
         cateList: [],
         active: 0,
         cateLevel2: [],
-        scrollTop:0
+        scrollTop: 0
       };
     },
     onLoad() {
@@ -66,21 +70,33 @@
       activeChange(i) {
         this.active = i
         this.cateLevel2 = this.cateList[i].children;
-        this.scrollTop = this.scrollTop ?  0: 1
+        this.scrollTop = this.scrollTop ? 0 : 1
       },
-      gotoGoodsList(item3){
+      gotoGoodsList(item3) {
         // console.log(1)
         uni.navigateTo({
-          url:'/subpkg/goods_list/goods_list?cid='+item3.cat_id
+          url: '/subpkg/goods_list/goods_list?cid=' + item3.cat_id
         })
       },
-      gotoSearch(){
+      gotoSearch() {
         // console.log(1)
         uni.navigateTo({
-          url:'/subpkg/search/search'
+          url: '/subpkg/search/search'
         })
-      }
-    }
+      },
+      // setBadge() {
+      //   uni.setTabBarBadge({
+      //     index:2,
+      //     text:this.total+''
+      //   })
+      // }
+    },
+    // computed:{
+    //   ...mapGetters('m_cart',['total'])
+    // },
+    // onShow() {
+    //   this.setBadge()
+    // }
   }
 </script>
 
@@ -126,20 +142,24 @@
     text-align: center;
     padding: 15px 0;
   }
-  .cate-lv3-list{
+
+  .cate-lv3-list {
     display: flex;
-    flex-wrap:wrap;
-    .cate-lv3-item{
+    flex-wrap: wrap;
+
+    .cate-lv3-item {
       display: flex;
       flex-direction: column;
       align-items: center;
       margin-bottom: 10px;
       width: 33.33%;
-      image{
+
+      image {
         width: 60px;
         height: 60px;
       }
-      text{
+
+      text {
         font-size: 12px;
       }
     }

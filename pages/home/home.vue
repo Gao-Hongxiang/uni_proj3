@@ -28,7 +28,8 @@
             <image :src="item.product_list[0].image_src" mode="widthFix" :style="{width:item.product_list[0].image_width + 'rpx'}"></image>
           </navigator>
           <view class="right-img-box">
-            <navigator class="right-img-item" :url="item2.url"  v-for="(item2,index2) in item.product_list" :key="index2" v-if="index2 !== 0">
+            <navigator class="right-img-item" :url="item2.url" v-for="(item2,index2) in item.product_list" :key="index2"
+              v-if="index2 !== 0">
               <image :src="item2.image_src" mode="widthFix" :style="{width: item2.image_width + 'rpx'}"></image>
             </navigator>
           </view>
@@ -41,7 +42,11 @@
 </template>
 
 <script>
+  // 导入自己封装的 mixin 模块
+  import badgeMix from '@/mixins/tabbar-badge.js'
   export default {
+    // 将 badgeMix 混入到当前的页面中进行使用
+    mixins: [badgeMix],
     data() {
       return {
         swiperList: [],
@@ -98,16 +103,16 @@
         if (res.meta.status !== 200) return uni.showMsg()
         res.message.forEach(floor => {
           floor.product_list.forEach(prod => {
-            prod.url = '/subpkg/goods_list/goods_list?'+prod.navigator_url.split('?')[1]
+            prod.url = '/subpkg/goods_list/goods_list?' + prod.navigator_url.split('?')[1]
           })
         })
         this.floorList = res.message
 
       },
-      gotoSearch(){
+      gotoSearch() {
         // console.log(1)
         uni.navigateTo({
-          url:'/subpkg/search/search'
+          url: '/subpkg/search/search'
         })
       }
     },
@@ -141,18 +146,21 @@
     height: 60rpx;
     width: 100%;
   }
-  .right-img-box{
+
+  .right-img-box {
     display: flex;
-    flex-wrap:wrap;
+    flex-wrap: wrap;
     justify-content: space-around;
   }
-  .floor-img-box{
+
+  .floor-img-box {
     display: flex;
     padding-left: 10rpx;
   }
-  .search-box{
+
+  .search-box {
     position: sticky;
-    top:0;
+    top: 0;
     z-index: 999;
   }
 </style>

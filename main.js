@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import App from './App'
+import store from '@/store/store.js'
 import{$http} from '@escook/request-miniprogram'
 Vue.config.productionTip = false
 
@@ -35,6 +36,7 @@ $http.afterRequest = function(option) {
 //   uni.hideLoading()
 // }
 const app = new Vue({
-	...App
+	...App,
+  store
 })
 app.$mount()
